@@ -1,0 +1,4 @@
+{
+    "layout": "templates/mathart.njk", 
+    "tags": "mathpost"
+}

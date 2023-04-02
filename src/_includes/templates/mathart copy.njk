@@ -1,0 +1,19 @@
+{% extends "templates/article.njk" %}
+
+
+{% block headext %}
+  <!-- MathJax script-->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Configuration of math jax -->
+  <script>
+      MathJax = {
+          tex: {
+              inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+              fontCache: 'global'
+          }
+      };
+  </script>
+{% endblock %}
