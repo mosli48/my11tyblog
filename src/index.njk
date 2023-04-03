@@ -1,87 +1,68 @@
 ---
 layout: 'templates/base.njk'
-
 title: 'Welcome to my blog!'
-
-descriptions:
-  - 'I use this space to document my adventures in front-end development, sharing how 
-  I’ve overcome issues I’ve run into, useful resources, and more.'
-  - 'wwwBelow are some of my favourite articles, or you can go to the blog page to 
-  see my most recent posts.'
-
-articles:
-  f_label: 'Featured articles'
-  f_link: '#featured-articles'
-  r_label: 'Most recent articles'
-  r_link: './blog'
 ---
 
-
-{#-----------------------------------------------------------------#}
-{% macro sc_header() %}
-{#-----------------------------------------------------------------#}
-  <section class="hero">
-    <div class="container flow">
-      
-      <div class="hero__content flow">
-        <h1 class="section-title">{{ title }} </h1>
-        <p>{{ descriptions[0] }}</p>
-        <p>{{ descriptions[1] }}</p>
-
-        <div class="flex-group">
-          <a href="{{ articles.f_link }}" class="btn btn--primary">{{ articles.f_label }}</a>
-          <a href="{{ articles.r_link }}" class="btn btn--neutral">{{ articles.r_label }}</a>
-        </div>
-      </div>
-
-      <div>
-        <img src="//unsplash.it/510" alt="" class="hero__image">
-      </div>
-    
-    </div>
-  </section>
-{% endmacro %}
+{% import "./macros.njk" as mc_home %}
 
 
 {#-----------------------------------------------------------------#}
-{% macro sc_math_articles() %}
+{% macro sc_math_articles_loop() %}
 {#-----------------------------------------------------------------#}
-<section id="featured-articles" class="featured-articles">
-  <div class="container flow">
-    <h2 class="section-title text-center ">Math articles</h2>
-    <p class="text-center">Here is a sample of articles which I feel give you a good idea of what this site is all about.</p>
-
-    <ul role="list" class="articles__list flow">
-      {% for mathpost in collections.math | reverse %}
-        {% include 'components/math-article-snippet.njk' %}  
-      {% endfor %}
-    </ul>
-  </div>
-</section>
+  {% for mathpost in collections.math | reverse %}
+    {% include 'components/math-article-snippet.njk' %}  
+  {% endfor %}
 {% endmacro %}
 
 {#-----------------------------------------------------------------#}
-{% macro sc_featured_articles() %}
+{% macro sc_featured_articles_loop() %}
 {#-----------------------------------------------------------------#}
-<section id="featured-articles" class="featured-articles">
-  <div class="container flow">
-    <h2 class="section-title text-center ">Featured articles</h2>
-    <p class="text-center">Here is a sample of articles which I feel give you a good idea of what this site is all about.</p>
-
-    <ul role="list" class="articles__list flow">
-      {% for post in collections.featured | reverse %}
-        {% include 'components/article-snippet.njk' %}  
-      {% endfor %}
-    </ul>
-  </div>
-</section>
+  {% for post in collections.featured | reverse %}
+    {% include 'components/article-snippet.njk' %}  
+  {% endfor %}
 {% endmacro %}
 
 {#-----------------------------------------------------------------#}
-{# Main part #}
+{% macro main(model) %}
 {#-----------------------------------------------------------------#}
-{{ sc_header() }}
-{{ sc_featured_articles() }}
-{{ sc_math_articles() }}
+  {{ mc_home.header(model.infos) }}
+  {{ mc_home.item_articles(model.items[1]) }}
+  {{ mc_home.item_articles(model.items[0]) }}
+{% endmacro %}
 
+
+
+{#-----------------------------------------------------------------#}
+{# Main part Model + main code                                     #}
+{#-----------------------------------------------------------------#}
+{% set model = {
+
+  items : [{ 
+      name:"math", 
+      label:"My Math", 
+      description:"Here is a sample of math articles which I feel give you a good idea of what this site is all about.", 
+      showItems:sc_math_articles_loop
+    },
+    { 
+      name:"featured", 
+      label:"My Featured", 
+      description:"Here is a sample of featured articles which I feel give you a good idea of what this site is all about.", 
+      showItems:sc_featured_articles_loop
+    }],
+
+  infos: { 
+    label: title, 
+    descriptions:[
+      'I use this space to document my adventures in front-end and back-end development, sharing how 
+        I’ve overcome issues I’ve run into, useful resources, and more.',
+      'wwwBelow are some of my favourite articles, or you can go to the blog page to 
+        see my most recent posts.'], 
+    featured: { link: '#featured-articles', label: 'Featured articles'},
+    recent: { link: '/blog', label: 'Most recent articles'}
+  }
+}
+%}
+
+{#-----------------------------------------------------------------#}
+{{ main(model) }}
 {#-----------------------------------------------------------------#}
