@@ -1,7 +1,7 @@
 ---
 title: My Second Article
-author: Kevin Powell
-date: 2021-05-15
+author: Mohammed Slimane
+date: 2023-02-15
 tags: ["post", "featured"]
 image: article-2.jpg
 imageAlt: This is a test

@@ -1,7 +1,7 @@
 ---
 title: My Third Article
-author: Kevin Powell
-date: 2021-05-28
+author: Mohammed Slimane
+date: 2023-03-28
 tags: ['post', 'featured']
 image: article-3.jpg
 imageAlt: This is a test

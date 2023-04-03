@@ -1,7 +1,7 @@
 ---
 title: My Fifth Article
-author: Kevin Powell
-date: 2021-06-15
+author: Mohammed Slimane
+date: 2023-03-15
 tags: ["post", "featured"]
 image: article-5.jpg
 imageAlt: This is a test
